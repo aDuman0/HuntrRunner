@@ -1,0 +1,52 @@
+[gd_scene load_steps=13 format=3 uid="uid://xw5govhny2m4"]
+
+[ext_resource type="Script" path="res://Scripts/level.gd" id="1_lh0x2"]
+[ext_resource type="PackedScene" uid="uid://cckcxwdvua7e" path="res://Modules/module_1.tscn" id="2_2k8yn"]
+[ext_resource type="PackedScene" uid="uid://ds84qqnolq8y1" path="res://player.tscn" id="3_dpj03"]
+[ext_resource type="PackedScene" uid="uid://cuv132icup1lr" path="res://Modules/module_2.tscn" id="3_x52r8"]
+[ext_resource type="Texture2D" uid="uid://cbrxbosvthsqk" path="res://Materials/bottom-view-sky-with-clouds.jpg" id="4_ax2pa"]
+[ext_resource type="PackedScene" uid="uid://bi15mesaspb1c" path="res://Modules/module_3.tscn" id="4_benlp"]
+[ext_resource type="PackedScene" uid="uid://dsro35qfsi5gk" path="res://Modules/module_4.tscn" id="5_5grfy"]
+[ext_resource type="Script" path="res://Scripts/score.gd" id="5_61dc3"]
+[ext_resource type="AudioStream" uid="uid://bv3ncwcxh716r" path="res://Music/Way Home.ogg" id="6_ayntr"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_s3x1g"]
+panorama = ExtResource("4_ax2pa")
+
+[sub_resource type="Sky" id="Sky_n7iwu"]
+sky_material = SubResource("PanoramaSkyMaterial_s3x1g")
+
+[sub_resource type="Environment" id="Environment_eb5m7"]
+background_mode = 2
+background_color = Color(0.522515, 0.80884, 0.964789, 1)
+sky = SubResource("Sky_n7iwu")
+volumetric_fog_density = 0.0527
+
+[node name="Scene" type="Node3D"]
+
+[node name="Level" type="Node3D" parent="."]
+script = ExtResource("1_lh0x2")
+modules = Array[PackedScene]([ExtResource("2_2k8yn"), ExtResource("3_x52r8"), ExtResource("4_benlp"), ExtResource("5_5grfy")])
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Level"]
+stream = ExtResource("6_ayntr")
+autoplay = true
+parameters/looping = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.0629822, 0.998015, 0, -0.998015, 0.0629822, 4.87915, 4.80715, 2.17614)
+sky_mode = 1
+
+[node name="Player" parent="." instance=ExtResource("3_dpj03")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.18413, 2.9697, 5.56821)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 5.48668e-14, -8.74228e-08, -2.0493e-08, 0.972137, 0.234413, 8.4987e-08, 0.234413, -0.972137, 1.06414, 6.68733, -1.24776)
+
+[node name="Score" type="Label3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0201714, 1.66776, -2.42104)
+text = "Score: 0"
+script = ExtResource("5_61dc3")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_eb5m7")

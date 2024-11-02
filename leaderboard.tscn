@@ -1,0 +1,65 @@
+[gd_scene load_steps=3 format=3 uid="uid://c84fwwih1ah2b"]
+
+[ext_resource type="Script" path="res://Scripts/leaderboardButton.gd" id="1_x1jkn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tv2jq"]
+font_color = Color(0.478431, 0.027451, 0, 1)
+
+[node name="leaderboard" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_x1jkn")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -89.0
+offset_top = 31.0
+offset_right = 96.0
+offset_bottom = 62.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Enter name:"
+
+[node name="buttonSubmit" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -55.0
+offset_top = 90.0
+offset_right = 47.0
+offset_bottom = 121.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Submit"
+
+[node name="incorrect" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -82.0
+offset_top = 62.0
+offset_right = 88.0
+offset_bottom = 85.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Username is incorrect"
+label_settings = SubResource("LabelSettings_tv2jq")
+
+[connection signal="focus_entered" from="LineEdit" to="." method="_on_line_edit_focus_entered"]
+[connection signal="pressed" from="buttonSubmit" to="." method="_on_button_submit_pressed"]
